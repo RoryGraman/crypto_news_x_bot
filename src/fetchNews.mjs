@@ -8,19 +8,18 @@ export const fetchAndSummarizeCryptoNews = async () => {
     const articles = await googleNewsScraper({
       searchTerm: "Latest crypto news",
       prettyURLs: true,
-      queryVars: {
-        hl: "en-US",
-        gl: "US",
-        ceid: "US:en",
-      },
+      queryVars: { hl: "en-US", gl: "US", ceid: "US:en" },
       timeframe: "1h",
-      puppeteerArgs: [],
     });
 
-    console.log(chalk.green(`Fetched ${articles.length} articles.`));
+    console.log(
+      articles.length > 0
+        ? chalk.green(`Fetched ${articles.length} articles.`)
+        : chalk.yellow("No articles found in the last hour.")
+    );
     return articles;
   } catch (error) {
     console.error(chalk.red("Error fetching news:"), error);
-    return []; // Return an empty array in case of an error
+    return [];
   }
 };

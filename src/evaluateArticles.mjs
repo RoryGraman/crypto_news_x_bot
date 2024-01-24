@@ -13,11 +13,8 @@ export const evaluateArticlesWithChatGPT = async (articles) => {
     chalk.blue("Evaluating articles for newsworthiness using OpenAI...")
   );
 
-  // Format the articles into a readable list for the prompt
   const formattedArticles = articles
-    .map((article) => {
-      return `Title: "${article.title}", Link: "${article.link}"`;
-    })
+    .map((article) => `Title: "${article.title}", Link: "${article.link}"`)
     .join("\n");
 
   const prompt = `
@@ -42,12 +39,7 @@ provide the json above and nothing else. your response is used in an api so any 
   try {
     const response = await openai.chat.completions.create({
       model: "gpt-4-1106-preview",
-      messages: [
-        {
-          role: "system",
-          content: prompt,
-        },
-      ],
+      messages: [{ role: "system", content: prompt }],
       max_tokens: 150,
     });
     const jsonResponse = JSON.parse(response.choices[0].message.content);
