@@ -26,9 +26,9 @@ const runTask = async () => {
         "originalLink" in jsonResponse &&
         "relevantHashtags" in jsonResponse
       ) {
-        const formattedPost = `${jsonResponse.generatedTitle}\n${
+        const formattedPost = `${jsonResponse.generatedTitle}\n\n${
           jsonResponse.originalLink
-        }\n${jsonResponse.relevantHashtags.join(" ")}`;
+        }\n\n${jsonResponse.relevantHashtags.join(" ")}`;
         await postTweet(formattedPost);
       } else {
         console.log(chalk.red("Required fields not found in JSON response"));
